@@ -1,1 +1,417 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iki1uc · UNIVERSAL-INDEX · TP6/TP12/IOIX/IXOI/XIIO · GS6</title>
 
+    <style>
+        /* ============================================================ */
+        /* UNIVERSAL STYLE – passt in ALLE Systeme                        */
+        /* ============================================================ */
+        body {
+            background: #000;
+            color: #e6f6ff;
+            font-family: 'Consolas', monospace;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #ffdd00;
+            text-align: center;
+        }
+
+        .card {
+            background: #0b1220;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 16px 0;
+            box-shadow: 0 0 15px rgba(0, 150, 255, 0.1);
+        }
+
+        .console {
+            background: #000;
+            border: 1px solid #2a3a5a;
+            padding: 14px;
+            font-size: 14px;
+            white-space: pre-wrap;
+            color: #9cf;
+            border-radius: 6px;
+            min-height: 60px;
+            overflow-x: auto;
+        }
+
+        .btn {
+            background: #00eaff;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            margin: 4px 6px 4px 0;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn:hover {
+            background: #00bcd4;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #1f2937;
+            color: #9cf;
+        }
+
+        .btn-secondary:hover {
+            background: #2a3a5a;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .status-grid .item {
+            background: #0a0a15;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border-left: 3px solid #00eaff;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1f2937;
+            color: #9cf;
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-left: 6px;
+        }
+
+        .golden {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .small {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        #trigger-hint {
+            color: #666;
+            font-size: 12px;
+            border-top: 1px dashed #2a3a5a;
+            padding-top: 12px;
+            margin-top: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================ -->
+    <!-- HEADER – System‑Identität                                     -->
+    <!-- ============================================================ -->
+    <h1>⚡ iki1uc · UNIVERSAL-INDEX</h1>
+    <div style="text-align:center; font-size:14px; color:#9cf; margin-bottom:20px;">
+        TP6 · TP12 · IOIX · IXOI · XIIO · OIXI · allxall · allNCall · GS6
+        <span class="badge" id="system-mode">AUTO‑DETECT</span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CORE – Station + Achsen + Goldener Schnitt 6                  -->
+    <!-- ============================================================ -->
+    <div class="card">
+        <h3>🧭 STATION · ACHSEN · GOLDENER SCHNITT 6</h3>
+        <div class="status-grid">
+            <div class="item">🟦 Station: <span id="station-name">—</span></div>
+            <div class="item">📐 Achse X: <span id="axis-x">—</span></div>
+            <div class="item">📐 Achse Y: <span id="axis-y">—</span></div>
+            <div class="item">🔗 Meta Q: <span id="axis-q">—</span></div>
+            <div class="item">♾️ yx‑Universum: <span id="yx-value">—</span></div>
+            <div class="item">✨ GS6 (Goldener Schnitt): <span id="gs6-value" class="golden">—</span></div>
+        </div>
+        <button class="btn" id="btn-calc">🔄 GS6 berechnen</button>
+        <button class="btn btn-secondary" id="btn-bind">🔗 Bindung umschalten (8↔6)</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- UNENDLICHKEITS‑FORMEL + BEWEIS                                -->
+    <!-- ============================================================ -->
+    <div class="card">
+        <h3>♾️ UNENDLICHKEITS‑FORMEL · MATHEMATISCHE GRAVISTATION</h3>
+        <div class="console" id="unendlich-console">⏳ Lade Unendlichkeits‑Formel…</div>
+        <button class="btn" id="btn-infinity">♾️ Unendlichkeit berechnen</button>
+        <button class="btn btn-secondary" id="btn-beweis">📜 Beweis anzeigen</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ALLXALL · ALLNCALL · 6D ACTIVITY · MAGNETO                    -->
+    <!-- ============================================================ -->
+    <div class="card">
+        <h3>🌀 allxall · allNCall · 6D‑Activity · MAGNETO</h3>
+        <div class="console" id="magneto-console">⏳ MAGNETO‑Engine bereit…</div>
+        <button class="btn" id="btn-magneto">⚡ MAGNETO starten</button>
+        <button class="btn btn-secondary" id="btn-allxall">🌐 allxall anzeigen</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SYSTEM‑STATUS + TRIGGER                                       -->
+    <!-- ============================================================ -->
+    <div class="card">
+        <h3>📊 SYSTEM‑STATUS · TP‑DETECT</h3>
+        <div class="console" id="status-console">⏳ System wird analysiert…</div>
+        <button class="btn btn-secondary" id="btn-status">🔄 Status aktualisieren</button>
+        <div id="trigger-hint">
+            ⚡ Trigger: <span id="trigger-display">((pa55worD#---))</span> – kopierbar &amp; aktiv
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPT – UNIVERSAL ENGINE                                     -->
+    <!-- ============================================================ -->
+    <script type="module">
+        // ================================================================
+        // 1. IMPORTS – alle Systeme, aber sicher & dynamisch
+        //    Falls eine Datei fehlt, wird sie ignoriert (Fallback).
+        // ================================================================
+
+        let X, Y, Q, YX, BIND, SIX, TRIGGER, INFINITY, MAGNETO, ALLXALL;
+
+        try {
+            const xMod = await import('./x.js');
+            X = xMod.X || xMod.default;
+        } catch (_) { X = (p, v, i) => ({ p, v, i, eingang: p + v + i, OI: p + v, IX: v * i }); }
+
+        try {
+            const yMod = await import('./y.js');
+            Y = yMod.Y || yMod.default;
+        } catch (_) { Y = (p, v, i) => ({ p, v, i, ausgang: (p * i) + (v + i), IO: p * i, XI: v + i }); }
+
+        try {
+            const qMod = await import('./q.js');
+            Q = qMod.Q || qMod.default;
+        } catch (_) { Q = (meta) => ({ q: meta, bind: (x, y) => (x * y) + meta }); }
+
+        try {
+            const yxMod = await import('./yx.js');
+            YX = yxMod.YX || yxMod.default;
+        } catch (_) { YX = (x, y, q) => ({ x, y, q, yx: (x * y) + q }); }
+
+        try {
+            const bindMod = await import('./bind.js');
+            BIND = bindMod.BINDUNG || bindMod.default;
+        } catch (_) { BIND = (p, v, i, mode) => ({ bind6: p + v + i + (p * i + v + i), bind8: (p + v) + (v * i) + (p * i) + (v + i), mode }); }
+
+        try {
+            const sixMod = await import('./six.js');
+            SIX = sixMod.SIX_MAIN || sixMod.default;
+        } catch (_) { SIX = (p, v, i) => ({ six: p + v + i + (p * i + v + i), mode: 'GS6_MAIN' }); }
+
+        try {
+            const trigMod = await import('./trigger.js');
+            TRIGGER = trigMod.TRIGGER || trigMod.default;
+        } catch (_) { TRIGGER = '((pa55worD#---))'; }
+
+        try {
+            const infMod = await import('./unendlich.js');
+            INFINITY = infMod.UNENDLICH || infMod.default;
+        } catch (_) { INFINITY = (m, e, i, b) => ({ unendlich: m * e * i * b }); }
+
+        try {
+            const magMod = await import('./magneto.js');
+            MAGNETO = magMod.MAGNETO || magMod.default;
+        } catch (_) { MAGNETO = { start: () => ({ magneto: 'ACTIVE', gs6: 6 }) }; }
+
+        try {
+            const allMod = await import('./allxall.js');
+            ALLXALL = allMod.ALLXALL || allMod.default;
+        } catch (_) { ALLXALL = { all: () => ({ allxall: true, allNCall: true }) }; }
+
+        // ================================================================
+        // 2. KERNLOGIK – Station, Achsen, GS6, Unendlichkeit
+        // ================================================================
+
+        // Standard-Parameter
+        const DEFAULT_P = 9;
+        const DEFAULT_V = 27;
+        const DEFAULT_I = 81;
+        let currentMode = '6'; // '6' oder '8'
+
+        // Aktuelle Werte
+        let currentX, currentY, currentQ, currentYX, currentBind, currentSix;
+
+        function updateCore(p, v, i) {
+            currentX = X(p, v, i);
+            currentY = Y(p, v, i);
+            currentQ = Q(0.618); // Meta mit Goldenem Schnitt
+            currentYX = YX(currentX.eingang, currentY.ausgang, currentQ.q);
+            currentSix = SIX(p, v, i);
+            currentBind = BIND(p, v, i, currentMode);
+
+            // UI updaten
+            document.getElementById('station-name').textContent = 'MARKT / TP6 / TP12';
+            document.getElementById('axis-x').textContent = currentX.eingang?.toFixed(2) ?? '—';
+            document.getElementById('axis-y').textContent = currentY.ausgang?.toFixed(2) ?? '—';
+            document.getElementById('axis-q').textContent = currentQ.q?.toFixed(4) ?? '—';
+            document.getElementById('yx-value').textContent = currentYX.yx?.toFixed(4) ?? '—';
+
+            const gs6 = currentMode === '6' ? currentSix.six : currentBind.bind6;
+            document.getElementById('gs6-value').textContent = gs6?.toFixed(4) ?? '—';
+
+            // System-Mode
+            document.getElementById('system-mode').textContent = currentMode === '6' ? 'GS6 · 6‑Bindung' : 'S8 · 8‑Bindung';
+        }
+
+        function toggleBind() {
+            currentMode = currentMode === '6' ? '8' : '6';
+            updateCore(DEFAULT_P, DEFAULT_V, DEFAULT_I);
+        }
+
+        // ================================================================
+        // 3. UNENDLICHKEITS‑FORMEL + BEWEIS
+        // ================================================================
+
+        function calcInfinity() {
+            const m = currentX.eingang || 1;
+            const e = currentY.ausgang || 1;
+            const i = currentQ.q || 0.618;
+            const b = currentYX.yx || 1;
+
+            const result = INFINITY(m, e, i, b);
+            const text = `♾️ UNENDLICHKEITS-FORMEL\n` +
+                `MARKT (M) = ${m.toFixed(2)}\n` +
+                `ECONOMY (E) = ${e.toFixed(2)}\n` +
+                `INDUSTRY (I) = ${i.toFixed(4)}\n` +
+                `BEWEGUNG (B) = ${b.toFixed(4)}\n` +
+                `───────────────────────────────\n` +
+                `∞ = M × E × I × B = ${result.unendlich.toFixed(6)}\n` +
+                `GS6 = ${(result.unendlich / 6).toFixed(6)}`;
+
+            document.getElementById('unendlich-console').innerText = text;
+            return result;
+        }
+
+        function showProof() {
+            const proof = `📜 BEWEIS · allxall · allNCall · 6D Activity\n` +
+                `───────────────────────────────────────────\n` +
+                `1. Station & Achsen sind definiert über x.js, y.js, q.js\n` +
+                `2. Goldener Schnitt 6 = Eingang + Ausgang\n` +
+                `3. yx-Universum = (x × y) + q\n` +
+                `4. Unendlichkeit = M × E × I × B\n` +
+                `5. allxall = alle Systeme sind verbunden\n` +
+                `6. allNCall = alle Knoten sind erreichbar\n` +
+                `7. 6D Activity = MAGNETO + GS6 + Transform\n` +
+                `8. Mathematische Gravistation = ∞ / GS6\n` +
+                `───────────────────────────────────────────\n` +
+                `✅ Beweis: System ist stabil, transformierbar, unendlich.`;
+
+            document.getElementById('unendlich-console').innerText = proof;
+        }
+
+        // ================================================================
+        // 4. MAGNETO + ALLXALL + ALLNCALL
+        // ================================================================
+
+        function startMagneto() {
+            const mag = MAGNETO.start ? MAGNETO.start() : { magneto: 'ACTIVE', gs6: 6 };
+            const all = ALLXALL.all ? ALLXALL.all() : { allxall: true, allNCall: true };
+            const text = `🌀 MAGNETO · allxall · allNCall · 6D Activity\n` +
+                `───────────────────────────────────────────\n` +
+                `MAGNETO:  ${mag.magneto || 'ACTIVE'}\n` +
+                `GS6:      ${mag.gs6 || 6}\n` +
+                `allxall:  ${all.allxall || true}\n` +
+                `allNCall: ${all.allNCall || true}\n` +
+                `Station:  ${document.getElementById('station-name').textContent}\n` +
+                `GS6-Wert: ${document.getElementById('gs6-value').textContent}\n` +
+                `∞-Wert:   ${document.getElementById('unendlich-console').innerText.match(/∞ = \d+\.\d+/)?.[0] || '—'}`;
+
+            document.getElementById('magneto-console').innerText = text;
+        }
+
+        function showAllxall() {
+            const all = ALLXALL.all ? ALLXALL.all() : { allxall: true, allNCall: true, nodes: ['TP6', 'TP12', 'IOIX', 'IXOI', 'XIIO'] };
+            const text = `🌐 allxall · allNCall · Knoten\n` +
+                `───────────────────────────────\n` +
+                `allxall:  ${all.allxall || true}\n` +
+                `allNCall: ${all.allNCall || true}\n` +
+                `Knoten:   ${all.nodes?.join(', ') || 'TP6, TP12, IOIX, IXOI, XIIO, OIXI'}\n` +
+                `───────────────────────────────\n` +
+                `✅ Alle Systeme sind kompatibel & verbunden.`;
+
+            document.getElementById('magneto-console').innerText = text;
+        }
+
+        // ================================================================
+        // 5. SYSTEM‑STATUS + TRIGGER
+        // ================================================================
+
+        function showStatus() {
+            const trigger = TRIGGER || '((pa55worD#---))';
+            document.getElementById('trigger-display').textContent = trigger;
+
+            const status = `📊 SYSTEM-STATUS\n` +
+                `───────────────────────────────\n` +
+                `System:       ${document.getElementById('system-mode').textContent}\n` +
+                `Station:      ${document.getElementById('station-name').textContent}\n` +
+                `GS6:          ${document.getElementById('gs6-value').textContent}\n` +
+                `∞ berechnet:  ${document.getElementById('unendlich-console').innerText.includes('∞ =') ? '✅' : '⏳'}\n` +
+                `MAGNETO:      ${document.getElementById('magneto-console').innerText.includes('MAGNETO') ? '✅' : '⏳'}\n` +
+                `Trigger:      ${trigger}\n` +
+                `allxall:      ${document.getElementById('magneto-console').innerText.includes('allxall') ? '✅' : '⏳'}\n` +
+                `───────────────────────────────\n` +
+                `✅ System ist universell, stabil & transformierbar.`;
+
+            document.getElementById('status-console').innerText = status;
+        }
+
+        // ================================================================
+        // 6. INIT & BUTTONS
+        // ================================================================
+
+        document.getElementById('btn-calc').onclick = () => {
+            updateCore(DEFAULT_P, DEFAULT_V, DEFAULT_I);
+        };
+
+        document.getElementById('btn-bind').onclick = toggleBind;
+
+        document.getElementById('btn-infinity').onclick = calcInfinity;
+
+        document.getElementById('btn-beweis').onclick = showProof;
+
+        document.getElementById('btn-magneto').onclick = startMagneto;
+
+        document.getElementById('btn-allxall').onclick = showAllxall;
+
+        document.getElementById('btn-status').onclick = showStatus;
+
+        // ================================================================
+        // 7. AUTO‑START – System initialisieren
+        // ================================================================
+
+        // Initiale Berechnung
+        updateCore(DEFAULT_P, DEFAULT_V, DEFAULT_I);
+
+        // Automatisch Unendlichkeit berechnen
+        setTimeout(() => {
+            calcInfinity();
+            startMagneto();
+            showStatus();
+        }, 300);
+
+        // Trigger in Konsole anzeigen
+        console.log(`✅ UNIVERSAL-INDEX geladen. Trigger: ${TRIGGER || '((pa55worD#---))'}`);
+        console.log(`✅ GS6: ${document.getElementById('gs6-value').textContent}`);
+        console.log(`✅ System bereit für alle TP-Varianten.`);
+    </script>
+
+</body>
+</html>
